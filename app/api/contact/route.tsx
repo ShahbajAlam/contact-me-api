@@ -53,7 +53,7 @@ const POST = async (req: NextRequest) => {
         });
     } catch (error) {
         if (error instanceof Error)
-            return NextResponse.json({ status: 401, error: error.message });
+            return NextResponse.json({ status: 401, error: error });
     }
 };
 
