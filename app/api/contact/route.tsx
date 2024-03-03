@@ -5,7 +5,7 @@ const POST = async (req: NextRequest) => {
     const { fname, email, message } = await req.json();
 
     try {
-        const resend = new Resend(process.env.API_KEY);
+        const resend = new Resend("re_BY6yRV8T_AnYNXw1HVrmuhyBXRj7yb6Co");
         const { data, error } = await resend.emails.send({
             from: process.env.FROM,
             to: process.env.TO,
