@@ -1,15 +1,14 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
-const resend = new Resend("re_BY6yRV8T_AnYNXw1HVrmuhyBXRj7yb6Co");
-
 const POST = async (req: NextRequest) => {
     const { fname, email, message } = await req.json();
 
     try {
+        const resend = new Resend(`${process.env.API_KEY}`);
         const { data, error } = await resend.emails.send({
-            from: "onboarding@resend.dev",
-            to: "shahbajalam78@gmail.com",
+            from: `${process.env.FROM}`,
+            to: `${process.env.TO}`,
             subject: `New message from ${fname}`,
             html: `
                 <div
