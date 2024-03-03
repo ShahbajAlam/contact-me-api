@@ -13,7 +13,6 @@ const POST = async (req: NextRequest) => {
                 user: process.env.EMAIL,
                 pass: process.env.PASSWORD,
             },
-            secure: true,
         });
 
         const mailOptions = {
