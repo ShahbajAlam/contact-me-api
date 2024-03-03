@@ -11,7 +11,13 @@ export default function Home() {
                 alignItems: "center",
             }}
         >
-            <h1 style={{ fontSize: "3rem" }}>
+            <h1
+                style={{
+                    fontSize: "3rem",
+                    textWrap: "balance",
+                    textAlign: "center",
+                }}
+            >
                 This is a simple "Contact-me API"
             </h1>
             <h3>Accessible on "/api/contact"</h3>
