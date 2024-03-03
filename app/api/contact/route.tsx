@@ -41,7 +41,17 @@ const POST = async (req: NextRequest) => {
         });
 
         if (error) return NextResponse.json({ error });
-        return NextResponse.json({ status: 200, data });
+        return NextResponse.json(
+            { status: 200, data },
+            {
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "POST",
+                    "Access-Control-Allow-Headers":
+                        "Content-Type, Authorization",
+                },
+            }
+        );
     } catch (error) {
         if (error instanceof Error)
             return NextResponse.json({ status: 401, error: error.message });
