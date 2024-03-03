@@ -7,11 +7,13 @@ const POST = async (req: NextRequest) => {
     try {
         const transporter = nodemailer.createTransport({
             service: "gmail",
-            secure: false,
+            port: 465,
+            host: "smtp.gmail.com",
             auth: {
                 user: process.env.EMAIL,
                 pass: process.env.PASSWORD,
             },
+            secure: true,
         });
 
         const mailOptions = {
