@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const POST = async (req: NextRequest) => {
     const { fname, email, message } = await req.json();
+    const origin = req.headers.get("origin");
 
     try {
         const resend = new Resend("re_BY6yRV8T_AnYNXw1HVrmuhyBXRj7yb6Co");
@@ -40,21 +41,23 @@ const POST = async (req: NextRequest) => {
             `,
         });
 
-        if (error) return NextResponse.json({ error });
-        return NextResponse.json(
-            { status: 200, data },
-            {
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "POST",
-                    "Access-Control-Allow-Headers":
-                        "Content-Type, Authorization",
-                },
-            }
-        );
+        if (error)
+            return new NextResponse(null, {
+                status: 400,
+                statusText: "Could not send the message",
+            });
+        return new NextResponse(JSON.stringify(data), {
+            headers: {
+                "Access-Control-Allow-Origin": origin,
+                "Content-Type": "application/json",
+            },
+        });
     } catch (error) {
         if (error instanceof Error)
-            return NextResponse.json({ status: 401, error: error.message });
+            return new NextResponse(null, {
+                status: 401,
+                statusText: error.message,
+            });
     }
 };
 
