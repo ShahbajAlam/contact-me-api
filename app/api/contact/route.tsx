@@ -62,7 +62,6 @@ const POST = async (req: Request) => {
             headers: {
                 "Access-Control-Allow-Origin": origin,
                 "Access-Control-Allow-Methods": "POST",
-                "Content-Type": "application/json",
             },
         });
     } catch (error) {
