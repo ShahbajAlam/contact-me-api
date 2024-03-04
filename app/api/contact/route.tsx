@@ -10,7 +10,7 @@ const POST = async (req: Request) => {
     const origin = req.headers.get("origin");
     const { fname, email, message } = await req.json();
 
-    if (!origin || (origin && !allowedOrigins.includes(origin))) {
+    if (origin && !allowedOrigins.includes(origin)) {
         return new NextResponse(null, {
             status: 400,
             statusText: "Bad Request",
