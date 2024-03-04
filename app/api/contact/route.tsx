@@ -1,9 +1,21 @@
 import { Resend } from "resend";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-const POST = async (req: NextRequest) => {
-    const { fname, email, message } = await req.json();
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://shahbajalam-portfolio.netlify.app",
+];
+
+const POST = async (req: Request) => {
     const origin = req.headers.get("origin");
+    const { fname, email, message } = await req.json();
+
+    if (!origin || (origin && !allowedOrigins.includes(origin))) {
+        return new NextResponse(null, {
+            status: 400,
+            statusText: "Bad Request",
+        });
+    }
 
     try {
         const resend = new Resend("re_BY6yRV8T_AnYNXw1HVrmuhyBXRj7yb6Co");
@@ -49,6 +61,7 @@ const POST = async (req: NextRequest) => {
         return new NextResponse(JSON.stringify(data), {
             headers: {
                 "Access-Control-Allow-Origin": origin,
+                "Access-Control-Allow-Methods": "POST",
                 "Content-Type": "application/json",
             },
         });
