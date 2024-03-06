@@ -2,11 +2,10 @@ import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { mailBody } from "@/mailBody";
 
-const allowedOrigins = [process.env.DEV, process.env.PROD];
-
 const POST = async (req: Request) => {
     const origin = req.headers.get("origin");
     const { fname, email, message } = await req.json();
+    const allowedOrigins = [process.env.DEV, process.env.PROD];
 
     if (!origin || (origin && !allowedOrigins.includes(origin))) {
         return new NextResponse(null, {
